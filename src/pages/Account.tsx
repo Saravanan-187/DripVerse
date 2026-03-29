@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { apiUrl } from "@/lib/api";
 
 const Account = () => {
     const [user, setUser] = useState<any>(null);
@@ -22,7 +23,7 @@ const Account = () => {
 
         // Fetch user details (using login response structure or a dedicated /me endpoint if we had one)
         // For now, we'll rely on what we have or fetch orders
-        fetch('http://localhost:5000/api/orders', {
+        fetch(apiUrl('/api/orders'), {
             headers: { 'Authorization': `Bearer ${token}` }
         })
             .then(res => {
@@ -56,7 +57,7 @@ const Account = () => {
         const password = formData.get('password');
 
         try {
-            const res = await fetch('http://localhost:5000/api/auth/profile', {
+            const res = await fetch(apiUrl('/api/auth/profile'), {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

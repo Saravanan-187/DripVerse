@@ -5,6 +5,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { apiUrl } from "@/lib/api";
 
 const Login = () => {
   return (
@@ -25,7 +26,7 @@ const Login = () => {
             const password = formData.get('password');
 
             try {
-              const response = await fetch('http://localhost:5000/api/auth/login', {
+              const response = await fetch(apiUrl('/api/auth/login'), {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password })

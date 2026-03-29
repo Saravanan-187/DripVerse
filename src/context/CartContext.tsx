@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { Product, products } from "@/data/products";
+import { apiUrl } from "@/lib/api";
 
 interface CartItem {
   product: Product;
@@ -31,7 +32,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/cart', {
+      const response = await fetch(apiUrl('/api/cart'), {
         headers: { 'Authorization': `Bearer ${token}` }
       });
 
@@ -82,7 +83,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
     if (token) {
       try {
-        await fetch('http://localhost:5000/api/cart', {
+        await fetch(apiUrl('/api/cart'), {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -105,7 +106,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
     if (token) {
       try {
-        await fetch(`http://localhost:5000/api/cart/${productId}/${size}/${color}`, {
+        await fetch(apiUrl(`/api/cart/${productId}/${size}/${color}`), {
           method: 'DELETE',
           headers: { 'Authorization': `Bearer ${token}` }
         });
@@ -130,7 +131,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
     if (token) {
       try {
-        await fetch('http://localhost:5000/api/cart', {
+        await fetch(apiUrl('/api/cart'), {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -148,7 +149,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     setItems([]);
     if (token) {
       try {
-        await fetch('http://localhost:5000/api/cart/clear', {
+        await fetch(apiUrl('/api/cart/clear'), {
           method: 'DELETE',
           headers: { 'Authorization': `Bearer ${token}` }
         });

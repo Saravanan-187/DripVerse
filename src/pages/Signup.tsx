@@ -4,6 +4,7 @@ import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { apiUrl } from "@/lib/api";
 
 const Signup = () => {
     return (
@@ -31,7 +32,7 @@ const Signup = () => {
                         }
 
                         try {
-                            const response = await fetch('http://localhost:5000/api/auth/register', {
+                            const response = await fetch(apiUrl('/api/auth/register'), {
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
                                 body: JSON.stringify({ name, email, password })

@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { apiUrl } from "@/lib/api";
 
 interface WishlistContextType {
   items: number[];
@@ -22,7 +23,7 @@ export const WishlistProvider = ({ children }: { children: ReactNode }) => {
       }
 
       try {
-        const response = await fetch("http://localhost:5000/api/wishlist", {
+        const response = await fetch(apiUrl('/api/wishlist'), {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -56,7 +57,7 @@ export const WishlistProvider = ({ children }: { children: ReactNode }) => {
 
     try {
       const response = await fetch(
-        isSaved ? `http://localhost:5000/api/wishlist/${productId}` : "http://localhost:5000/api/wishlist",
+        isSaved ? apiUrl(`/api/wishlist/${productId}`) : apiUrl('/api/wishlist'),
         {
           method: isSaved ? "DELETE" : "POST",
           headers: {

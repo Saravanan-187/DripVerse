@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { ChevronRight } from "lucide-react";
+import { apiUrl } from "@/lib/api";
 
 const Checkout = () => {
   const { items, totalPrice, clearCart } = useCart();
@@ -55,7 +56,7 @@ const Checkout = () => {
           country: formData.state || "India"
         };
 
-        const response = await fetch('http://localhost:5000/api/orders', {
+        const response = await fetch(apiUrl('/api/orders'), {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
