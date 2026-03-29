@@ -1,0 +1,181 @@
+/* ═══════════════════════════════════════════════════
+   PARALLAX LAYER — Site-wide 3D Depth System
+   ═══════════════════════════════════════════════════ */
+
+/* ── Main Layer ── */
+.parallax-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  color: hsl(var(--foreground));
+  overflow: hidden;
+}
+
+/* ── Film Grain Texture ── */
+.parallax-grain {
+  position: absolute;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  animation: parallax-grain-shift 0.5s steps(1) infinite;
+  opacity: 0.4;
+}
+
+@keyframes parallax-grain-shift {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(-5%, -5%); }
+  50% { transform: translate(5%, 0); }
+  75% { transform: translate(0, 5%); }
+}
+
+/* ── Floating Animation ── */
+.parallax-float {
+  animation: parallax-float-gentle 8s ease-in-out infinite;
+}
+
+@keyframes parallax-float-gentle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+/* Staggered delay variants */
+.parallax-float-delay-10 { animation-delay: 1s; }
+.parallax-float-delay-15 { animation-delay: 1.5s; }
+.parallax-float-delay-20 { animation-delay: 2s; }
+.parallax-float-delay-25 { animation-delay: 2.5s; }
+.parallax-float-delay-30 { animation-delay: 3s; }
+
+/* ── Gradient Orbs ── */
+.parallax-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  will-change: transform;
+  transition: transform 0.3s ease-out;
+}
+
+.parallax-orb-1 {
+  width: 400px;
+  height: 400px;
+  top: 20%;
+  right: -10%;
+  background: radial-gradient(circle, rgba(120, 120, 120, 0.06), transparent 70%);
+}
+
+.parallax-orb-2 {
+  width: 350px;
+  height: 350px;
+  bottom: 10%;
+  left: -8%;
+  background: radial-gradient(circle, rgba(100, 100, 100, 0.05), transparent 70%);
+}
+
+/* ── 3D Tilt Card Enhancement ── */
+.parallax-3d-card {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.parallax-3d-card > * {
+  transform: translateZ(0);
+}
+
+/* Inner content slightly pops forward on hover for depth */
+.parallax-3d-card:hover .parallax-3d-inner {
+  transform: translateZ(30px);
+  transition: transform 0.4s cubic-bezier(0.03, 0.98, 0.52, 0.99);
+}
+
+/* ── Scroll Reveal Animations ── */
+.parallax-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.parallax-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.parallax-reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.parallax-reveal-left.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.parallax-reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.parallax-reveal-right.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.parallax-reveal-scale {
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.parallax-reveal-scale.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Stagger children */
+.parallax-stagger > * {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.parallax-stagger.is-visible > *:nth-child(1) { transition-delay: 0ms; opacity: 1; transform: translateY(0); }
+.parallax-stagger.is-visible > *:nth-child(2) { transition-delay: 80ms; opacity: 1; transform: translateY(0); }
+.parallax-stagger.is-visible > *:nth-child(3) { transition-delay: 160ms; opacity: 1; transform: translateY(0); }
+.parallax-stagger.is-visible > *:nth-child(4) { transition-delay: 240ms; opacity: 1; transform: translateY(0); }
+.parallax-stagger.is-visible > *:nth-child(5) { transition-delay: 320ms; opacity: 1; transform: translateY(0); }
+.parallax-stagger.is-visible > *:nth-child(6) { transition-delay: 400ms; opacity: 1; transform: translateY(0); }
+.parallax-stagger.is-visible > *:nth-child(7) { transition-delay: 480ms; opacity: 1; transform: translateY(0); }
+.parallax-stagger.is-visible > *:nth-child(8) { transition-delay: 560ms; opacity: 1; transform: translateY(0); }
+
+/* ── Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .parallax-grain,
+  .parallax-float {
+    animation: none !important;
+  }
+
+  .parallax-reveal,
+  .parallax-reveal-left,
+  .parallax-reveal-right,
+  .parallax-reveal-scale {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  
+  .parallax-stagger > * {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

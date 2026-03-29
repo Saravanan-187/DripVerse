@@ -1,0 +1,211 @@
+/* ═══════════════════════════════════════════════════
+   HERO SECTION — Dynamic Animations & Effects
+   ═══════════════════════════════════════════════════ */
+
+/* ── Animated Gradient Overlay ── */
+.hero-gradient-animated {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.4) 0%,
+    rgba(0, 0, 0, 0) 40%,
+    rgba(0, 0, 0, 0.1) 60%,
+    rgba(0, 0, 0, 0.5) 100%
+  );
+  background-size: 200% 200%;
+  animation: hero-gradient-shift 12s ease-in-out infinite;
+}
+
+@keyframes hero-gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* ── Floating Particles ── */
+.hero-particle {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  animation: hero-particle-float linear infinite;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+@keyframes hero-particle-float {
+  0% {
+    transform: translateY(0) translateX(0) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+    transform: translateY(-10px) translateX(5px) scale(1);
+  }
+  50% {
+    opacity: 0.3;
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-120px) translateX(30px) scale(0);
+    opacity: 0;
+  }
+}
+
+/* ── Accent Line ── */
+.hero-accent-line {
+  height: 2px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+}
+
+/* ── Text Effects ── */
+.hero-text-gradient {
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    #e0e0e0 40%,
+    #ffffff 60%,
+    #c8c8c8 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: hero-text-shimmer 6s linear infinite;
+}
+
+@keyframes hero-text-shimmer {
+  0%, 100% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 200% center;
+  }
+}
+
+.hero-text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.7);
+  transition: all 0.5s ease;
+}
+
+.hero-section:hover .hero-text-outline {
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.95);
+  text-shadow: 0 0 60px rgba(255, 255, 255, 0.1);
+}
+
+/* ── CTA Primary Button Shine ── */
+.hero-cta-primary {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-cta-shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    transparent 100%
+  );
+  animation: hero-cta-shine-sweep 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes hero-cta-shine-sweep {
+  0%, 70%, 100% {
+    left: -100%;
+  }
+  80% {
+    left: 100%;
+  }
+}
+
+/* ── Marquee Badge ── */
+.hero-marquee-badge {
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.hero-marquee-content {
+  animation: hero-marquee-scroll 16s linear infinite;
+}
+
+@keyframes hero-marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* ── Scroll Indicator ── */
+.hero-scroll-indicator {
+  width: 20px;
+  height: 34px;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  border-radius: 10px;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 6px;
+}
+
+.hero-scroll-dot {
+  width: 3px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 2px;
+  animation: hero-scroll-bounce 2s ease-in-out infinite;
+}
+
+@keyframes hero-scroll-bounce {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(12px);
+    opacity: 1;
+  }
+}
+
+/* ── Vertical Text ── */
+.hero-vertical-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  letter-spacing: 0.25em;
+  opacity: 0.4;
+}
+
+/* ── Responsive ── */
+@media (min-width: 768px) {
+  .wave-editorial {
+    height: 100px;
+    max-height: 100px;
+  }
+}
+
+/* ── Reduced Motion Preference ── */
+@media (prefers-reduced-motion: reduce) {
+  .hero-gradient-animated,
+  .hero-particle,
+  .hero-text-gradient,
+  .hero-cta-shine,
+  .hero-marquee-content,
+  .hero-scroll-dot {
+    animation: none !important;
+  }
+
+  .hero-text-gradient {
+    -webkit-text-fill-color: white;
+  }
+}
