@@ -7,14 +7,24 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const MONGODB_URI = process.env.MONGODB_URI;
+const JWT_SECRET = process.env.JWT_SECRET;
+
+if (!MONGODB_URI) {
+    console.error('Missing required env var: MONGODB_URI');
+    process.exit(1);
+}
+
+if (!JWT_SECRET) {
+    console.error('Missing required env var: JWT_SECRET');
+    process.exit(1);
+}
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
 // MongoDB Connection
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb+srv://saravananb0704_db_user:dripverse_123@cluster0.h9z8eu0.mongodb.net/dripverse?appName=Cluster0";
-
 mongoose.connect(MONGODB_URI)
     .then(() => console.log('Connected to MongoDB'))
     .catch((err) => console.error('MongoDB connection error:', err));
